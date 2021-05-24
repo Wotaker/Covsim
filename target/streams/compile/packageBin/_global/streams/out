@@ -1,0 +1,41 @@
+[0m[[0m[0mdebug[0m] [0m[0mPackaging C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\hello-world_2.13-1.0.jar ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mInput file mappings:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AgeObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\AgeObject$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	AgeObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\AgeObject.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Building.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Building.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Citizen.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Citizen.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Home$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Home$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Home.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Home.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Main$$anon$1.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Main$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Main$delayedInit$body.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Main.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Params$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Params$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Params.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Params.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	School$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\School$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	School.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\School.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StateSIR$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\StateSIR$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	StateSIR.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\StateSIR.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Work$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Work$.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	Work.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\Work.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	World.class[0m
+[0m[[0m[0mdebug[0m] [0m[0m	  C:\Users\wojci\OneDrive\Pulpit\AGH\Semestr IV\MS Dyskretnych\Projekt\mycovsim\target\scala-2.13\classes\World.class[0m
+[0m[[0m[0mdebug[0m] [0m[0mDone packaging.[0m
