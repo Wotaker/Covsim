@@ -3,13 +3,14 @@ import scala.math.{pow => pow}
 
 object Params{
   // Model Parameters:
-  val INFECTION_TIME: Int = 5  // Days/Iterations
-  val EXPOSURE_TIME: Int = 14  // Days/Iterations
+  val INFECTION_TIME: Int = 5     // Days/Iterations
+  val EXPOSURE_TIME: Int = 14     // Days/Iterations
   val FATALITY_RATE: Double = 0.25
   val TEMP_CONTAGION_RATE: Double = 0.05   // TODO: infect upon citizen parameters, not a constant
   
   // Implementation Parameters:
-  val RNG = new Random(42)  // For seed=42, and population=20 inits epidemy from citizen 2.
+  val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
+  val REFRESH_SPEED: Int = 200    // In ms
 }
 
 object StateSIR extends Enumeration {
@@ -19,6 +20,15 @@ object StateSIR extends Enumeration {
   val Infectious = Value("INFECTIOUS")
   val Recovered = Value("RECOVERED")
   val Dead = Value("DEAD")
+
+  def short(state: StateSIR): String = state match {
+    case Suspectible => "S"
+    case Exposed => "E"
+    case Infectious => "I"
+    case Recovered => "R"
+    case Dead => "D"
+    case _ => ""
+  }
 }
 
 object AgeObject {

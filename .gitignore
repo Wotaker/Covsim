@@ -16,6 +16,10 @@ project/plugins/project/
 .history
 .cache
 .lib/
+.metals
+.vscode
+.bloop
+project/
 
 ### Scala ###
 *.class

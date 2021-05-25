@@ -9,9 +9,9 @@ class World(
 ) {
   // Initial Attributes:
   var iteration: Int = 0
-  private val homes: List[Home] = List.tabulate(buildings._1)(h => new Home(h + 1))
-  private val works: List[Work] = List.tabulate(buildings._2)(w => new Work(w + 1))
-  private val schools: List[School] = List.tabulate(buildings._3)(s => new School(s + 1))
+  val homes: List[Home] = List.tabulate(buildings._1)(h => new Home(h + 1))
+  val works: List[Work] = List.tabulate(buildings._2)(w => new Work(w + 1))
+  val schools: List[School] = List.tabulate(buildings._3)(s => new School(s + 1))
   val population: List[Citizen] = generatePopulation()
   initEpidemy()
   

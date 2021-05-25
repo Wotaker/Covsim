@@ -57,6 +57,8 @@ class Citizen(
   def isInfecting(): Boolean =
     if (currentState == Exposed || currentState == Infectious) true
     else false
+
+  def getState(): StateSIR = currentState
   
   override def toString(): String = 
     s"Citizen ${id}, state: ${currentState.toString()}, age: ${age}, " +
