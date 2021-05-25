@@ -53,6 +53,7 @@ class World(
     val citizen = new Citizen(citId, age, home, work)
     home.inhabitants += citizen
     if (work ne home) work.inhabitants += citizen
+    Gui.addCitizen(citId.toString,home.id,-1)
     citizen
   }
 
