@@ -1,5 +1,6 @@
 import Params._
 import AgeObject._
+import StateSIR._
 import scala.collection.mutable.ListBuffer
 
 class World(
@@ -13,12 +14,14 @@ class World(
   val works: List[Work] = List.tabulate(buildings._2)(w => new Work(w + 1))
   val schools: List[School] = List.tabulate(buildings._3)(s => new School(s + 1))
   val population: List[Citizen] = generatePopulation()
+  val currentSimulationState: Array[Int] = Array(0, 0, 0, 0, 0, 0)
   initEpidemy()
   
 
   // Main Loop
   def iterationLoop(): Unit = {
     iteration += 1
+    if (SAVE) countStates(iteration)
 
     // Spread infection in buildings
     homes.foreach(h => h.spreadInfection(Home.contagionRate))
@@ -56,7 +59,15 @@ class World(
     citizen
   }
 
+  def countStates(iteration: Int) {
+    currentSimulationState(0) = iteration
+    population.foreach(p => currentSimulationState(p.getState().id + 1) += 1)
+    Data.writeData(currentSimulationState.map(n => n.toString()))
+    for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
+  }
+
   def printPopulation() = for (p <- population) println(p.toString())
+
   def printBuildings() = {
     println("===  Homes  ===\n")
     homes.foreach(h => {

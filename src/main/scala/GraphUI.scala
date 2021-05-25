@@ -36,7 +36,7 @@ class GraphUI(val world: World) extends ViewerListener {
   val nodes: ListBuffer[Node] = new ListBuffer[Node]()
   val edges: ListBuffer[Edge] = new ListBuffer[Edge]()
   initializeGraph()
-  Thread.sleep(2000)  // Take a short nap, the graph is stabilizing
+  Thread.sleep(5000)  // Take a short nap, the graph is stabilizing
 
   // Main loop which updates the world, and repaints it
   while (loop) {
@@ -92,6 +92,7 @@ class GraphUI(val world: World) extends ViewerListener {
 
   override def viewClosed(x$1: String): Unit = {
     println("Closing...")
+    Data.closeFile()
     loop = false
   }
 

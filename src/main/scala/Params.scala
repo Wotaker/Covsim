@@ -1,5 +1,6 @@
 import scala.util.Random
 import scala.math.{pow => pow}
+import java.io.File
 
 object Params{
   // Model Parameters:
@@ -10,16 +11,18 @@ object Params{
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
-  val REFRESH_SPEED: Int = 200    // In ms
+  val REFRESH_SPEED: Int = 300    // In ms
+  val FILE_DATA: File = new File("DataSEIR.csv")
+  val SAVE: Boolean = true
 }
 
 object StateSIR extends Enumeration {
   type StateSIR = Value
-  val Suspectible = Value("SUSPECTIBLE")
-  val Exposed = Value("EXPOSED")
-  val Infectious = Value("INFECTIOUS")
-  val Recovered = Value("RECOVERED")
-  val Dead = Value("DEAD")
+  val Suspectible = Value(0, "SUSPECTIBLE")
+  val Exposed = Value(1, "EXPOSED")
+  val Infectious = Value(2, "INFECTIOUS")
+  val Recovered = Value(3, "RECOVERED")
+  val Dead = Value(4, "DEAD")
 
   def short(state: StateSIR): String = state match {
     case Suspectible => "S"

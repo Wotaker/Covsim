@@ -29,6 +29,7 @@ libraryDependencies += "org.scala-lang.modules" %% "scala-parser-combinators" % 
 libraryDependencies += "org.scala-lang.modules" %% "scala-swing" % "3.0.0"
 libraryDependencies += "org.graphstream" % "gs-core" % "2.0"
 libraryDependencies += "org.graphstream" % "gs-ui-swing" % "2.0"
+libraryDependencies += "com.opencsv" % "opencsv" % "5.4"
 
 // Here, `libraryDependencies` is a set of dependencies, and by using `+=`,
 // we're adding the scala-parser-combinators dependency to the set of dependencies
