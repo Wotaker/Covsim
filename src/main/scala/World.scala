@@ -21,7 +21,7 @@ class World(
   // Main Loop
   def iterationLoop(): Unit = {
     iteration += 1
-    if (SAVE) countStates(iteration)
+    if (SAVE && Data.keepWriting) countStates(iteration)
 
     // Spread infection in buildings
     homes.foreach(h => h.spreadInfection(Home.contagionRate))
@@ -63,6 +63,8 @@ class World(
     currentSimulationState(0) = iteration
     population.foreach(p => currentSimulationState(p.getState().id + 1) += 1)
     Data.writeData(currentSimulationState.map(n => n.toString()))
+    if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) 
+      Data.keepWriting = false
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
   }
 

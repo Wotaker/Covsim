@@ -11,9 +11,10 @@ object Params{
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
-  val REFRESH_SPEED: Int = 300    // In ms
+  val REFRESH_SPEED: Int = 100    // In ms
   val FILE_DATA: File = new File("DataSEIR.csv")
   val SAVE: Boolean = true
+  val DISPLAY_GRAPH: Boolean = true
 }
 
 object StateSIR extends Enumeration {

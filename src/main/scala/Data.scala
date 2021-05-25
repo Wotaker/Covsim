@@ -3,6 +3,7 @@ import java.io.IOException
 import com.opencsv.CSVWriter
 
 object Data {
+  var keepWriting = true
   val outputFile: FileWriter = new FileWriter(Params.FILE_DATA)
   val writer: CSVWriter = new CSVWriter(outputFile)
   val header: Array[String] = Array(

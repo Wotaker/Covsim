@@ -49,8 +49,8 @@ plot!(
 
 display(SIRplot)
 
-plotName = "Model_X.png"
-save = false
+plotName = "Model_0.png"
+save = true
 if save
-    savefig(SIRplot, "Lab07(CA)/SavedPlots/$(plotName)")
+    savefig(SIRplot, "./savedPlots/$(plotName)")
 end

@@ -7,5 +7,5 @@ class Work(
 }
 
 object Work {
-  val contagionRate: Double = 1.0
+  val contagionRate: Double = 0.4
 }

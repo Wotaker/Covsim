@@ -31,20 +31,22 @@ class GraphUI(val world: World) extends ViewerListener {
   fromViewer.addViewerListener(this)
   fromViewer.addSink(graph)
   
-  // Creating world and initializing it
-  // for (iter <- 0.until(25)) world.iterationLoop()
+  // Creating world reprezentation as a graph
   val nodes: ListBuffer[Node] = new ListBuffer[Node]()
   val edges: ListBuffer[Edge] = new ListBuffer[Edge]()
-  initializeGraph()
-  Thread.sleep(5000)  // Take a short nap, the graph is stabilizing
+  if (Params.DISPLAY_GRAPH) {
+    initializeGraph()
+    Thread.sleep(5000)  // Take a short nap, the graph is stabilizing
+  }
 
   // Main loop which updates the world, and repaints it
-  while (loop) {
+  if (Params.DISPLAY_GRAPH) while (loop) {
     fromViewer.pump()
     world.iterationLoop()
     repaintGraph()
     Thread.sleep(Params.REFRESH_SPEED)
   }
+  else while (loop) world.iterationLoop()
 
   // Method which updates the ilustrated graph
   private def repaintGraph() {
