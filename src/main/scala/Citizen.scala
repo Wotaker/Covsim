@@ -1,6 +1,7 @@
 import AgeObject._
 import StateSIR._
 import Params._
+import GraphUI._
 
 class Citizen(
   val id: Int,
@@ -46,9 +47,12 @@ class Citizen(
   }
 
   // TODO: infect upon citizen parameters, not a constant
-  def getInfectedOrNot(from: Citizen, contagionModerator: Double) = if (
+  def getInfectedOrNot(from: Citizen, contagionModerator: Double,letter:Char) = if (
     currentState == Suspectible && RNG.nextDouble() < TEMP_CONTAGION_RATE * contagionModerator
-    ) infected = true
+    ){
+      infected = true
+      GraphUI.blink(s"${id}${letter}")
+    } 
 
   def setInfected() {
     if (currentState == Suspectible) infected = true

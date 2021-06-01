@@ -1,17 +1,18 @@
 import scala.collection.mutable.ListBuffer
 
 
-class Building(
+abstract class Building(
   val id: Int
 ) {
   // Initialize building:
+  val letter:Char
   val inhabitants: ListBuffer[Citizen] = 
     new ListBuffer[Citizen]()
 
   def spreadInfection(buildingRate: Double) {
     for (i <- inhabitants) {
       if (i.isInfecting()) for (j <- inhabitants) {
-        if (i ne j) j.getInfectedOrNot(i, buildingRate)
+        if (i ne j) j.getInfectedOrNot(i, buildingRate,letter)
       }
     }
   }
