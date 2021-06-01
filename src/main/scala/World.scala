@@ -15,21 +15,32 @@ class World(
   val schools: List[School] = List.tabulate(buildings._3)(s => new School(s + 1))
   val population: List[Citizen] = generatePopulation()
   val currentSimulationState: Array[Int] = Array(0, 0, 0, 0, 0, 0)
+
+  val data = new Data()
+  if (SAVE) data.initialize()
   initEpidemy()
   
 
   // Main Loop
-  def iterationLoop(): Unit = {
+  def iterationLoop(): Boolean = {
     iteration += 1
-    if (SAVE && Data.keepWriting) countStates(iteration)
+    if (SAVE && data.keepWriting) countStates(iteration)
 
-    // Spread infection in buildings
-    homes.foreach(h => h.spreadInfection(Home.contagionRate))
-    works.foreach(w => w.spreadInfection(Work.contagionRate))
-    schools.foreach(s => s.spreadInfection(School.contagionRate))
+    if (!DISPLAY_GRAPH && SAVE && !data.keepWriting) {
+      println("Closing...")
+      data.closeFile()
+      false
+    }
+    else {
+      // Spread infection in buildings
+      homes.foreach(h => h.spreadInfection(Home.contagionRate))
+      works.foreach(w => w.spreadInfection(Work.contagionRate))
+      schools.foreach(s => s.spreadInfection(School.contagionRate))
 
-    // Update states of the population
-    population.foreach(p => p.updateCurrentState())
+      // Update states of the population
+      population.foreach(p => p.updateCurrentState())
+      true
+    }
   }
 
 
@@ -62,9 +73,9 @@ class World(
   def countStates(iteration: Int) {
     currentSimulationState(0) = iteration
     population.foreach(p => currentSimulationState(p.getState().id + 1) += 1)
-    Data.writeData(currentSimulationState.map(n => n.toString()))
+    data.writeData(currentSimulationState.map(n => n.toString()))
     if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) 
-      Data.keepWriting = false
+      data.keepWriting = false
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
   }
 

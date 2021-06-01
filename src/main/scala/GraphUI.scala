@@ -14,6 +14,7 @@ class GraphUI(val world: World) extends ViewerListener {
 
   // Initialize
   var loop: Boolean = true
+  val data: Data = world.data
 
   System.setProperty("org.graphstream.ui", "swing")
   var graph: Graph = new SingleGraph("SimulationCity")
@@ -34,19 +35,17 @@ class GraphUI(val world: World) extends ViewerListener {
   // Creating world reprezentation as a graph
   val nodes: ListBuffer[Node] = new ListBuffer[Node]()
   val edges: ListBuffer[Edge] = new ListBuffer[Edge]()
-  if (Params.DISPLAY_GRAPH) {
-    initializeGraph()
-    Thread.sleep(5000)  // Take a short nap, the graph is stabilizing
-  }
+  initializeGraph()
+  Thread.sleep(2000)  // Take a short nap, the graph is stabilizing
 
   // Main loop which updates the world, and repaints it
-  if (Params.DISPLAY_GRAPH) while (loop) {
+  while (loop) {
     fromViewer.pump()
     world.iterationLoop()
     repaintGraph()
     Thread.sleep(Params.REFRESH_SPEED)
   }
-  else while (loop) world.iterationLoop()
+  println("Out of the loop")
 
   // Method which updates the ilustrated graph
   private def repaintGraph() {
@@ -93,8 +92,10 @@ class GraphUI(val world: World) extends ViewerListener {
   }
 
   override def viewClosed(x$1: String): Unit = {
-    println("Closing...")
-    Data.closeFile()
+    if (Params.SAVE) {
+      println("Closing...")
+      data.closeFile()
+    }
     loop = false
   }
 
