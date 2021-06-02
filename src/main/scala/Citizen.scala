@@ -7,7 +7,10 @@ class Citizen(
   val id: Int,
   val age: Int,
   val home: Home,
-  val work: Building
+  val work: Building,
+  val wearsMask: Boolean,
+  val unemployed: Boolean,
+  val responsible: Boolean
 ) {
   // Initialize:
   private var currentState: StateSIR = Suspectible
@@ -26,11 +29,11 @@ class Citizen(
     this.currentState match {
       case Suspectible if (infected) => {
         currentState = Exposed
-        exposedTimer = EXPOSURE_TIME
+        exposedTimer = getIncubationTime()
       }
       case Exposed if (exposedTimer == 0) => {
         currentState = Infectious
-        infectiousTimer = INFECTION_TIME
+        infectiousTimer = getInfetionTime()
       }
       case Exposed => 
         exposedTimer -= 1
@@ -47,12 +50,22 @@ class Citizen(
   }
 
   // TODO: infect upon citizen parameters, not a constant
-  def getInfectedOrNot(from: Citizen, contagionModerator: Double,letter:Char) = if (
-    currentState == Suspectible && RNG.nextDouble() < TEMP_CONTAGION_RATE * contagionModerator
-    ){
+  def getInfectedOrNot(from: Citizen, contagionModerator: Double, letter: Char): Unit = {
+    if (
+      currentState == Suspectible && 
+      (from.currentState == Exposed || (from.currentState == Infectious && !from.responsible)) &&
+      RNG.nextDouble() < calcProbability(
+        RAW_CONTAGION_RATE, 
+        contagionModerator,
+        if (wearsMask) MASK_MODERATOR else 1.0
+      )
+    ) {
       infected = true
       GraphUI.blink(s"${id}${letter}")
     } 
+  }
+
+  def calcProbability(rates: Double*): Double = rates.foldLeft(1.0)((z, x) => z * x)
 
   def setInfected() {
     if (currentState == Suspectible) infected = true
@@ -66,5 +79,5 @@ class Citizen(
   
   override def toString(): String = 
     s"Citizen ${id}, state: ${currentState.toString()}, age: ${age}, " +
-    s"home: ${home.id}, ${getWorkType(age)}: ${work.id}"
+    s"home: ${home.id}, ${getWorkType(age, unemployed)}: ${work.id}"
 }

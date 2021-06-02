@@ -1,5 +1,5 @@
 import scala.util.Random
-import scala.math.{pow => pow}
+import scala.math.{pow => pow, log => log}
 import java.io.File
 
 object Params{
@@ -7,14 +7,49 @@ object Params{
   val INFECTION_TIME: Int = 5     // Days/Iterations
   val EXPOSURE_TIME: Int = 14     // Days/Iterations
   val FATALITY_RATE: Double = 0.25
-  val TEMP_CONTAGION_RATE: Double = 0.05   // TODO: infect upon citizen parameters, not a constant
+  val RAW_CONTAGION_RATE: Double = 0.05   // TODO: infect upon citizen parameters, not a constant
+  val UNEMPLOYMENT_RATE: Double = 0.06
+    // According to: https://www.nature.com/articles/d41586-020-02801-8
+  val MASK_WEAR_RATE: Double = 0.4          // The percentage of population wearing masks
+  val MASK_MODERATOR: Double = 1.0 - 0.67
+  val SOCIAL_RESPONSIBILITY: Double = 0.5  // The ratio of people who avoid social conntact when infected 
+  
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
-  val REFRESH_SPEED: Int = 100    // In ms
+  val REFRESH_SPEED: Int = 50    // In ms
   val FILE_DATA: File = new File("SaveTests.csv")
   val SAVE: Boolean = false
   val DISPLAY_GRAPH: Boolean = true
+
+
+  /** Calculates the incubation time in days with the distribution function.
+    * Data taken from:
+    * https://www.worldometers.info/coronavirus/coronavirus-incubation-period/ and
+    * https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7324649/
+    * 
+    * function plot:
+    * https://www.desmos.com/calculator/mb1xsqrkre
+    *
+    * @return Incubation time in days/iterations
+    */
+  def getIncubationTime(): Int = {
+    val x = RNG.nextDouble()
+    if (x >= 0.5) math.ceil(5.2 - (log((1 / x) - 1) / 0.386)).toInt
+    else math.ceil(4.25 - (log((1 / (x + 0.02)) - 1.7) / 1.546)).toInt
+  }
+
+  /** Calculates the infection time in days with the distribution function.
+    * Data taken from:
+    * https://patient.info/news-and-features/coronavirus-how-quickly-do-covid-19-symptoms-develop-and-how-long-do-they-last
+    * 
+    * @return Infection time in days/iterations
+    */
+  def getInfetionTime(): Int = {
+    val x = RNG.nextDouble()
+    val result = math.ceil(10.5 - (log((1 / x) - 1) / 0.945)).toInt
+    if (result < 4) 4 else result
+  }  
 }
 
 object StateSIR extends Enumeration {
@@ -56,9 +91,9 @@ object AgeObject {
     age
   }
 
-  def getWorkType(age: Int): String =
+  def getWorkType(age: Int, unemployed: Boolean): String =
     age match {
-      case a if (a < schoolAge || a >= retiredAge) => "home"
+      case a if (a < schoolAge || a >= retiredAge || unemployed) => "home"
       case a if (a < workAge) => "school"
       case _ => "work"
     }

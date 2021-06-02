@@ -59,12 +59,20 @@ class World(
   private def spawnCitizen(citId: Int): Citizen = {
     val age = getAge()
     val home = homes(RNG.nextInt(buildings._1))
+    var unemployed = false
     val work = age match {
-      case a if (a < schoolAge || a >= retiredAge) => home
+      case a if (
+        a < schoolAge || a >= retiredAge || RNG.nextDouble() < UNEMPLOYMENT_RATE
+      ) => { unemployed = true; home }
       case a if (a < workAge) => schools(RNG.nextInt(buildings._3))
       case _ => works(RNG.nextInt(buildings._2))
     }
-    val citizen = new Citizen(citId, age, home, work)
+    val citizen = new Citizen(
+      citId, age, home, work,
+      RNG.nextDouble() < MASK_WEAR_RATE,
+      unemployed,
+      RNG.nextDouble() < SOCIAL_RESPONSIBILITY
+    )
     home.inhabitants += citizen
     if (work ne home) work.inhabitants += citizen
     citizen
@@ -74,8 +82,11 @@ class World(
     currentSimulationState(0) = iteration
     population.foreach(p => currentSimulationState(p.getState().id + 1) += 1)
     data.writeData(currentSimulationState.map(n => n.toString()))
-    if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) 
+    if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) {
       data.keepWriting = false
+      print("COVID-19 DEFEATED!")
+    }
+
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
   }
 

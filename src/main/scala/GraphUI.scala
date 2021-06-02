@@ -47,25 +47,24 @@ object GraphUI extends ViewerListener {
     this.world = world
     initializeGraph()
     Thread.sleep(2000)  // Take a short nap, the graph is stabilizing
-      while (loop) {
-    fromViewer.pump()
-    world.iterationLoop()
-    repaintGraph()
-    Thread.sleep(Params.REFRESH_SPEED)
-  }
-  println("Out of the loop")
+
+    while (loop) {
+      fromViewer.pump()
+      world.iterationLoop()
+      repaintGraph()
+      Thread.sleep(Params.REFRESH_SPEED)
+    }
+    println("Out of the loop")
   }
 
   // Method which updates the ilustrated graph
-  
-  
-   def repaintGraph() {
+  def repaintGraph() {
     world.population.foreach(p => {
       graph.getNode(s"p${p.id}").setAttribute("ui.class", short(p.getState()))
     })
   }
 
-   def initializeGraph() {
+  def initializeGraph() {
     import AgeObject.getWorkType
     // Initialize each of the building
     world.homes.foreach(h => {
@@ -94,7 +93,7 @@ object GraphUI extends ViewerListener {
 
       // Conect nodes
       edges += graph.addEdge(s"${p.id}h", s"p${p.id}", s"h${p.home.id}")
-      getWorkType(p.age) match {
+      getWorkType(p.age, p.unemployed) match {
         case "work" => {
           edges += graph.addEdge(s"${p.id}w", s"p${p.id}", s"w${p.work.id}")
           edges.last.setAttribute("ui.class", "inactive")
@@ -110,7 +109,7 @@ object GraphUI extends ViewerListener {
     })
   }
 
-   def viewClosed(x$1: String): Unit = {
+  def viewClosed(x$1: String): Unit = {
     if (Params.SAVE) {
       println("Closing...")
       data.closeFile()
@@ -126,7 +125,7 @@ object GraphUI extends ViewerListener {
     //val temp:String = e.getAttribute("ui.class");
     if(e!=null){
     e.setAttribute("ui.class","infection")
-    Thread.sleep(300)
+    // Thread.sleep(300)
     e.setAttribute("ui.class","")
     }else{
       println("no such edge")
@@ -134,19 +133,19 @@ object GraphUI extends ViewerListener {
 
   }
 
-   def buttonPushed(id: String): Unit = {
+  def buttonPushed(id: String): Unit = {
     println("Button pushed on node " + id)
   }
 
-   def buttonReleased(id: String): Unit = {
+  def buttonReleased(id: String): Unit = {
     println("Button released on node " + id)
   }
 
-   def mouseOver(id: String): Unit = {
+  def mouseOver(id: String): Unit = {
     println("Need the Mouse Options to be activated")
   }
 
-   def mouseLeft(x$1: String): Unit = {
+  def mouseLeft(x$1: String): Unit = {
     println("Need the Mouse Options to be activated")
   }
 
