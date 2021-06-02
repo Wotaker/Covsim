@@ -43,10 +43,10 @@ object GraphUI extends ViewerListener {
   // Main loop which updates the world, and repaints it
   def run(world:World){
 
-    data =world.data
+    data = world.data
     this.world = world
     initializeGraph()
-    Thread.sleep(2000)  // Take a short nap, the graph is stabilizing
+    Thread.sleep(4000)  // Take a short nap, the graph is stabilizing
 
     while (loop) {
       fromViewer.pump()
@@ -57,10 +57,12 @@ object GraphUI extends ViewerListener {
     println("Out of the loop")
   }
 
+  
   // Method which updates the ilustrated graph
   def repaintGraph() {
     world.population.foreach(p => {
       graph.getNode(s"p${p.id}").setAttribute("ui.class", short(p.getState()))
+      blink(s"p${p.id}", p.blink, p.infectionData)
     })
   }
 
@@ -93,6 +95,7 @@ object GraphUI extends ViewerListener {
 
       // Conect nodes
       edges += graph.addEdge(s"${p.id}h", s"p${p.id}", s"h${p.home.id}")
+      edges.last.setAttribute("ui.class", "inactive")
       getWorkType(p.age, p.unemployed) match {
         case "work" => {
           edges += graph.addEdge(s"${p.id}w", s"p${p.id}", s"w${p.work.id}")
@@ -117,19 +120,35 @@ object GraphUI extends ViewerListener {
     loop = false
   }
 
-  def blink(edgeId:String){
-    /*
-    ustawia klasę krawędzi [str] na "infection" na krótką chwilę 
-    */
-    val e:Edge = graph.getEdge(edgeId);
-    //val temp:String = e.getAttribute("ui.class");
-    if(e!=null){
-    e.setAttribute("ui.class","infection")
-    // Thread.sleep(300)
-    e.setAttribute("ui.class","")
-    }else{
-      println("no such edge")
+  private def blink(node: String, signal: Boolean, data: Option[(String, String)]){
+    if (data.isDefined) {
+      val superEdge: (Edge, Edge) = (
+      graph.getEdge(s"${node.tail}${data.get._2.head}"),        // p7 -> h1 results in 7h edge
+      graph.getEdge(s"${data.get._1.tail}${data.get._2.head}")  // p6 -> h1 results in 6h edge
+      )
+
+      if (signal) {
+        superEdge._1.setAttribute("ui.class", "active")
+        superEdge._2.setAttribute("ui.class", "active")
+      } else {
+        superEdge._1.setAttribute("ui.class", "inactive")
+        superEdge._2.setAttribute("ui.class", "inactive")
+      }
     }
+    
+
+    // /*
+    // ustawia klasę krawędzi [str] na "infection" na krótką chwilę 
+    // */
+    // val e:Edge = graph.getEdge(edgeId);
+    // //val temp:String = e.getAttribute("ui.class");
+    // if(e!=null){
+    // e.setAttribute("ui.class","infection")
+    // Thread.sleep(300)
+    // e.setAttribute("ui.class","")
+    // }else{
+    //   println("no such edge")
+    // }
 
   }
 

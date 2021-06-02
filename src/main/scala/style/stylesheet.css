@@ -49,13 +49,26 @@ node.D{
 node.R{
 	fill-color: rgb(19, 83, 0);
 }
+
+
+edge.inactive {
+	visibility-mode: hidden;
+}
+
+edge.active {
+	visibility-mode: normal;
+	fill-mode: plain;
+	fill-color: red;
+}
+
+/*
 edge {
 	shape: line;
 	fill-mode: dyn-plain;
-	/* stroke-width: 2px; */
 	stroke-mode: plain;
 }
-
+*/
+/*
 edge.inactive {
 	stroke-color: lightgray;
 	visibility-mode:hidden;
@@ -63,3 +76,4 @@ edge.inactive {
 edge.infection{
 	stroke-color: red;
 }
+*/

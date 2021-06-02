@@ -17,6 +17,8 @@ class Citizen(
   private var infected: Boolean = false
   private var infectiousTimer: Int = 0
   private var exposedTimer: Int = 0
+  var infectionData: Option[(String, String)] = None
+  var blink: Boolean = false
 
   def reset() {
     currentState = Suspectible
@@ -30,13 +32,16 @@ class Citizen(
       case Suspectible if (infected) => {
         currentState = Exposed
         exposedTimer = getIncubationTime()
+        blink = true
       }
       case Exposed if (exposedTimer == 0) => {
         currentState = Infectious
         infectiousTimer = getInfetionTime()
       }
-      case Exposed => 
+      case Exposed => {
+        if (blink) blink = false
         exposedTimer -= 1
+      }
       case Infectious if (infectiousTimer == 0) => {
         currentState = Recovered
         infected = false
@@ -50,7 +55,7 @@ class Citizen(
   }
 
   // TODO: infect upon citizen parameters, not a constant
-  def getInfectedOrNot(from: Citizen, contagionModerator: Double, letter: Char): Unit = {
+  def getInfectedOrNot(from: Citizen, contagionModerator: Double, where: String): Unit = {
     if (
       currentState == Suspectible && 
       (from.currentState == Exposed || (from.currentState == Infectious && !from.responsible)) &&
@@ -61,7 +66,8 @@ class Citizen(
       )
     ) {
       infected = true
-      GraphUI.blink(s"${id}${letter}")
+      infectionData = Some((s"p${from.id}", where))
+      // GraphUI.blink(s"${id}${letter}")
     } 
   }
 

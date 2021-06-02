@@ -3,7 +3,7 @@
 class Work(
   override val id: Int
 ) extends Building(id) {
-  val letter:Char='w'
+  val letter: Char = 'w'
 }
 
 object Work {

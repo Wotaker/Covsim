@@ -33,9 +33,9 @@ class World(
     }
     else {
       // Spread infection in buildings
-      homes.foreach(h => h.spreadInfection(Home.contagionRate))
-      works.foreach(w => w.spreadInfection(Work.contagionRate))
-      schools.foreach(s => s.spreadInfection(School.contagionRate))
+      homes.foreach(h => h.spreadInfection(Home.contagionRate, s"h${h.id}"))
+      works.foreach(w => w.spreadInfection(Work.contagionRate, s"w${w.id}"))
+      schools.foreach(s => s.spreadInfection(School.contagionRate, s"s${s.id}"))
 
       // Update states of the population
       population.foreach(p => p.updateCurrentState())
@@ -84,7 +84,7 @@ class World(
     data.writeData(currentSimulationState.map(n => n.toString()))
     if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) {
       data.keepWriting = false
-      print("COVID-19 DEFEATED!")
+      println("COVID-19 DEFEATED!")
     }
 
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
