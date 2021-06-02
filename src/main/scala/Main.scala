@@ -9,7 +9,7 @@ object Main extends App {
         return
       }
       val world: World = new World(100, 1, (20, 4, 3))
-      if (Params.DISPLAY_GRAPH)  GraphUI.run(world)
+      if (Params.DISPLAY_GRAPH) new GraphUI(world)
       else {
         var worldSpinning = true
         while (worldSpinning) worldSpinning = world.iterationLoop()

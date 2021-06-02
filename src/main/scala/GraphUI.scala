@@ -10,13 +10,12 @@ import StateSIR._
 import org.graphstream.graph.Edge
 
 
-object GraphUI extends ViewerListener {
+class GraphUI(val world: World) extends ViewerListener {
   
 
 // Initialize
-  var world:World = null
   var loop: Boolean = true
-  var data:Data = null
+  var data:Data = world.data
 
   System.setProperty("org.graphstream.ui", "swing")
   var graph: Graph = new SingleGraph("SimulationCity")
@@ -29,7 +28,7 @@ object GraphUI extends ViewerListener {
 
   // Corelates viewer with the graph
   var viewer: Viewer = graph.display()
-  //viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY)
+  viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.HIDE_ONLY)
 
   var fromViewer: ViewerPipe = viewer.newViewerPipe()
   fromViewer.addViewerListener(this)
@@ -38,26 +37,20 @@ object GraphUI extends ViewerListener {
   // Creating world reprezentation as a graph
   val nodes: ListBuffer[Node] = new ListBuffer[Node]()
   val edges: ListBuffer[Edge] = new ListBuffer[Edge]()
+  initializeGraph()
+  Thread.sleep(2000)  // Take a short nap, the graph is stabilizing
 
 
   // Main loop which updates the world, and repaints it
-  def run(world:World){
-
-    data = world.data
-    this.world = world
-    initializeGraph()
-    Thread.sleep(4000)  // Take a short nap, the graph is stabilizing
-
-    while (loop) {
-      fromViewer.pump()
-      world.iterationLoop()
-      repaintGraph()
-      Thread.sleep(Params.REFRESH_SPEED)
-    }
-    println("Out of the loop")
+  while (loop) {
+    fromViewer.pump()
+    world.iterationLoop()
+    repaintGraph()
+    Thread.sleep(Params.REFRESH_SPEED)
   }
+  println("Out of the loop")
 
-  
+
   // Method which updates the ilustrated graph
   def repaintGraph() {
     world.population.foreach(p => {
@@ -112,7 +105,7 @@ object GraphUI extends ViewerListener {
     })
   }
 
-  def viewClosed(x$1: String): Unit = {
+  override def viewClosed(x$1: String): Unit = {
     if (Params.SAVE) {
       println("Closing...")
       data.closeFile()
@@ -135,21 +128,6 @@ object GraphUI extends ViewerListener {
         superEdge._2.setAttribute("ui.class", "inactive")
       }
     }
-    
-
-    // /*
-    // ustawia klasę krawędzi [str] na "infection" na krótką chwilę 
-    // */
-    // val e:Edge = graph.getEdge(edgeId);
-    // //val temp:String = e.getAttribute("ui.class");
-    // if(e!=null){
-    // e.setAttribute("ui.class","infection")
-    // Thread.sleep(300)
-    // e.setAttribute("ui.class","")
-    // }else{
-    //   println("no such edge")
-    // }
-
   }
 
   def buttonPushed(id: String): Unit = {

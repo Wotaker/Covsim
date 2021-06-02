@@ -17,9 +17,9 @@ object Params{
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
-  val REFRESH_SPEED: Int = 500    // In ms
+  val REFRESH_SPEED: Int = 200    // In ms
   val FILE_DATA: File = new File("SaveTests.csv")
-  val SAVE: Boolean = true
+  val SAVE: Boolean = false
   val DISPLAY_GRAPH: Boolean = true
 
 

@@ -1,7 +1,6 @@
 import AgeObject._
 import StateSIR._
 import Params._
-import GraphUI._
 
 class Citizen(
   val id: Int,
