@@ -1,5 +1,7 @@
 using DataFrames, Plots, CSV
 
+plotName = "Model_0.png"
+save = true
 cumulativeIE = false
 
 SIRframe = DataFrame(CSV.File("./DataSEIR.csv"))
@@ -49,8 +51,6 @@ plot!(
 
 display(SIRplot)
 
-plotName = "Model_0.png"
-save = true
 if save
     savefig(SIRplot, "./savedPlots/$(plotName)")
 end

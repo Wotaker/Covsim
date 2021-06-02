@@ -1,31 +1,29 @@
 
+/* === Nodes === */
+
 node {
 	fill-mode: plain;
 	stroke-mode: plain;
+	text-alignment: above;
+	text-size: 20;
 }
 
 node.home{
 	fill-color: rgb(17, 0, 255);
 	shape: diamond;
 	size:15px,15px;
-	text-alignment: above;
-	text-size: 20;
 }
 
 node.school{
 	fill-color: rgb(236, 233, 12);
 	shape: diamond;
 	size:20px,20px;
-	text-alignment: above;
-	text-size: 20;
 }
 
 node.work{
 	fill-color: rgb(67, 0, 190);
 	shape: diamond;
 	size:20px,20px;
-	text-alignment: above;
-	text-size: 20;
 }
 
 /* Citizens */
@@ -48,4 +46,10 @@ node.D{
 
 node.R{
 	fill-color: rgb(19, 83, 0);
+}
+
+/* === Edges === */
+
+edge {
+	visibility-mode:hidden;
 }

@@ -77,11 +77,11 @@ class GraphUI(val world: World) extends ViewerListener {
     world.population.foreach(p => {
       nodes += graph.addNode(s"p${p.id}")
       nodes.last.setAttribute("ui.class", short(p.getState()))
-      nodes.last.setAttribute("ui.label", short(p.getState()))
+      // nodes.last.setAttribute("ui.label", short(p.getState()))
 
       // Conect nodes
       edges += graph.addEdge(s"ph${p.id}->${p.home.id}", s"p${p.id}", s"h${p.home.id}")
-      getWorkType(p.age) match {
+      getWorkType(p.age, p.unemployed) match {
         case "work" => 
           edges += graph.addEdge(s"pw${p.id}->${p.work.id}", s"p${p.id}", s"w${p.work.id}")
         case "school" =>
