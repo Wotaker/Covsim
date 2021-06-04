@@ -8,7 +8,7 @@ object Main extends App {
         println("Exiting program...")
         return
       }
-      val world: World = new World(100, 1, (20, 4, 3))
+      val world: World = new World(60, 3, (14, 4, 1))
       if (Params.DISPLAY_GRAPH) new GraphUI(world)
       else {
         var worldSpinning = true

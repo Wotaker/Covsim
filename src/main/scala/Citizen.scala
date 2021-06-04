@@ -12,15 +12,16 @@ class Citizen(
   val responsible: Boolean
 ) {
   // Initialize:
-  private var currentState: StateSIR = Suspectible
+  private var currentState: StateSIR = Susceptible
   private var infected: Boolean = false
+  private var infectionTime: Int = getInfetionTime()
   private var infectiousTimer: Int = 0
   private var exposedTimer: Int = 0
   var infectionData: Option[(String, String)] = None
   var blink: Boolean = false
 
   def reset() {
-    currentState = Suspectible
+    currentState = Susceptible
     infected = false
     infectiousTimer = 0
     exposedTimer = 0
@@ -28,14 +29,14 @@ class Citizen(
 
   def updateCurrentState() {
     this.currentState match {
-      case Suspectible if (infected) => {
+      case Susceptible if (infected) => {
         currentState = Exposed
         exposedTimer = getIncubationTime()
         blink = true
       }
       case Exposed if (exposedTimer == 0) => {
         currentState = Infectious
-        infectiousTimer = getInfetionTime()
+        infectiousTimer = infectionTime
       }
       case Exposed => {
         if (blink) blink = false
@@ -46,7 +47,7 @@ class Citizen(
         infected = false
       }
       case Infectious => {
-        if (RNG.nextDouble() < getFatalityChance(age)) currentState = Dead
+        if (RNG.nextDouble() < getFatalityChance(age, infectionTime)) currentState = Dead
         else infectiousTimer -= 1
       }
       case _ => 
@@ -56,12 +57,12 @@ class Citizen(
   // TODO: infect upon citizen parameters, not a constant
   def getInfectedOrNot(from: Citizen, contagionModerator: Double, where: String): Unit = {
     if (
-      currentState == Suspectible && 
+      currentState == Susceptible && 
       (from.currentState == Exposed || (from.currentState == Infectious && !from.responsible)) &&
       RNG.nextDouble() < calcProbability(
         RAW_CONTAGION_RATE, 
         contagionModerator,
-        if (wearsMask) MASK_MODERATOR else 1.0
+        if (wearsMask) MASK_EFFICIENCY else 1.0
       )
     ) {
       infected = true
@@ -73,7 +74,7 @@ class Citizen(
   def calcProbability(rates: Double*): Double = rates.foldLeft(1.0)((z, x) => z * x)
 
   def setInfected() {
-    if (currentState == Suspectible) infected = true
+    if (currentState == Susceptible) infected = true
   }
 
   def isInfecting(): Boolean =

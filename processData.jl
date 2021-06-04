@@ -1,10 +1,11 @@
 using DataFrames, Plots, CSV
 
-plotName = "Model_0.png"
+plotName = "Model_Dist-Infection.png"
+fileCSVname = "DataSEIR.csv"
 save = true
 cumulativeIE = false
 
-SIRframe = DataFrame(CSV.File("./DataSEIR.csv"))
+SIRframe = DataFrame(CSV.File("./savedData/$fileCSVname"))
 
 SIRplot = plot(
     SIRframe[!, :Day], 

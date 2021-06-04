@@ -5,7 +5,7 @@ node {
 }
 
 node.home{
-	fill-color: rgb(17, 0, 255);
+	fill-color: rgb(0, 102, 255);
 	shape: diamond;
 	size:15px,15px;
 	text-alignment: above;

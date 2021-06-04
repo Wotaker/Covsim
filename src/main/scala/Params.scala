@@ -4,22 +4,20 @@ import java.io.File
 
 object Params{
   // Model Parameters:
-  val INFECTION_TIME: Int = 5     // Days/Iterations
-  val EXPOSURE_TIME: Int = 14     // Days/Iterations
-  val FATALITY_RATE: Double = 0.25
+  val FATALITY_RATE: Double = 0.025
   val RAW_CONTAGION_RATE: Double = 0.05   // TODO: infect upon citizen parameters, not a constant
   val UNEMPLOYMENT_RATE: Double = 0.06
     // According to: https://www.nature.com/articles/d41586-020-02801-8
-  val MASK_WEAR_RATE: Double = 0.4          // The percentage of population wearing masks
-  val MASK_MODERATOR: Double = 1.0 - 0.67
+  val MASK_WEAR_RATE: Double = 0.5          // The percentage of population wearing masks (0.5 est.)
+  val MASK_EFFICIENCY: Double = 0.67        // The effectivness of mask protection (0.67 est.)
   val SOCIAL_RESPONSIBILITY: Double = 0.5  // The ratio of people who avoid social conntact when infected 
   
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
   val REFRESH_SPEED: Int = 200    // In ms
-  val FILE_DATA: File = new File("SaveTests.csv")
-  val SAVE: Boolean = false
+  val FILE_DATA: File = new File("savedData\\DataSEIR.csv")
+  val SAVE: Boolean = true
   val DISPLAY_GRAPH: Boolean = true
 
 
@@ -50,18 +48,22 @@ object Params{
     val result = math.ceil(10.5 - (log((1 / x) - 1) / 0.945)).toInt
     if (result < 4) 4 else result
   }  
+
+  // Depriciated, constants, replaced by get getInfetionTime() and getIncubationTime()
+  private val INFECTION_TIME: Int = 5     // Mean Days/Iterations
+  private val EXPOSURE_TIME: Int = 11     // Mean Days/Iterations
 }
 
 object StateSIR extends Enumeration {
   type StateSIR = Value
-  val Suspectible = Value(0, "SUSPECTIBLE")
+  val Susceptible = Value(0, "SUSPECTIBLE")
   val Exposed = Value(1, "EXPOSED")
   val Infectious = Value(2, "INFECTIOUS")
   val Recovered = Value(3, "RECOVERED")
   val Dead = Value(4, "DEAD")
 
   def short(state: StateSIR): String = state match {
-    case Suspectible => "S"
+    case Susceptible => "S"
     case Exposed => "E"
     case Infectious => "I"
     case Recovered => "R"
@@ -98,5 +100,5 @@ object AgeObject {
       case _ => "work"
     }
   
-  def getFatalityChance(age: Int): Double = FATALITY_RATE / INFECTION_TIME
+  def getFatalityChance(age: Int, duration: Int): Double = FATALITY_RATE / duration
 }
