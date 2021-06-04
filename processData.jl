@@ -1,14 +1,19 @@
 using DataFrames, Plots, CSV
 
 plotName = "Model_0.png"
+dataName = "DataSEIR.csv"
 save = true
 cumulativeIE = false
+partToPlot = (0.0, 1.0)
 
-SIRframe = DataFrame(CSV.File("./DataSEIR.csv"))
+SIRframe = DataFrame(CSV.File("./data/$dataName"))
+len = size(SIRframe)[1]
+partRange = (Int(round(len * partToPlot[1])) + 1):(Int(round(len * partToPlot[2])))
+plotFrame = SIRframe[partRange, :]
 
 SIRplot = plot(
-    SIRframe[!, :Day], 
-    SIRframe[!, :Suspectible],
+    plotFrame[!, :Day], 
+    plotFrame[!, :Suspectible],
     title = "SEIR Model Evolution",
     xlabel = "Day",
     ylabel = "Cases",
@@ -18,33 +23,33 @@ SIRplot = plot(
 if cumulativeIE
     plot!(
         SIRplot,
-        SIRframe[!, :Exposed] + SIRframe[!, :Infectious],
+        plotFrame[!, :Exposed] + plotFrame[!, :Infectious],
         label = "Infectious",
         color = :red
     )
 else
     plot!(
         SIRplot,
-        SIRframe[!, :Exposed],
+        plotFrame[!, :Exposed],
         label = "Exposed",
         color = 2
     )
     plot!(
         SIRplot,
-        SIRframe[!, :Infectious],
+        plotFrame[!, :Infectious],
         label = "Infectious",
         color = :red
     )
 end
 plot!(
     SIRplot,
-    SIRframe[!, :Recovered],
+    plotFrame[!, :Recovered],
     label = "Recovered",
     color = :green
 )
 plot!(
     SIRplot,
-    SIRframe[!, :Dead],
+    plotFrame[!, :Dead],
     label = "Dead",
     color = :Black
 )

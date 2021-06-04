@@ -84,7 +84,7 @@ class World(
     data.writeData(currentSimulationState.map(n => n.toString()))
     if (currentSimulationState(2) == 0 && currentSimulationState(3) == 0) {
       data.keepWriting = false
-      print("COVID-19 DEFEATED!")
+      println("COVID-19 DEFEATED!")
     }
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
   }

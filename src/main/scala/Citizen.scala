@@ -56,7 +56,7 @@ class Citizen(
       RNG.nextDouble() < calcProbability(
         RAW_CONTAGION_RATE, 
         contagionModerator,
-        if (wearsMask) MASK_MODERATOR else 1.0
+        if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
       )
     ) infected = true
   }
