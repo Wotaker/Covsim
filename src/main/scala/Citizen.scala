@@ -62,7 +62,7 @@ class Citizen(
       RNG.nextDouble() < calcProbability(
         RAW_CONTAGION_RATE, 
         contagionModerator,
-        if (wearsMask) MASK_EFFICIENCY else 1.0
+        if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
       )
     ) {
       infected = true
@@ -72,6 +72,24 @@ class Citizen(
   }
 
   def calcProbability(rates: Double*): Double = rates.foldLeft(1.0)((z, x) => z * x)
+
+  def calcProbContact(): Double = {
+    val a = calcProbability(
+      RAW_CONTAGION_RATE,
+      Home.contagionRate,
+      if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
+    )
+    val b = calcProbability(
+      RAW_CONTAGION_RATE,
+      getWorkType(age, unemployed) match {
+        case "home" => Home.contagionRate
+        case "work" => Work.contagionRate
+        case "school" => School.contagionRate
+      },
+      if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
+    )
+    (a + b) / 2
+  }
 
   def setInfected() {
     if (currentState == Susceptible) infected = true

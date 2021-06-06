@@ -1,0 +1,13 @@
+1) Analyzing R0 in  relation to density of workplaces:
+  Parameters:
+val FATALITY_RATE: Double = 0.025
+val RAW_CONTAGION_RATE: Double = 0.031
+val UNEMPLOYMENT_RATE: Double = 0.06
+val MASK_WEAR_RATE: Double = 0.5
+val MASK_EFFICIENCY: Double = 0.67    
+val SOCIAL_RESPONSIBILITY: Double = 0.6
+
+  results:
+Crowded, Sparse, SparseVery
+
+2)

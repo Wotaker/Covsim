@@ -90,6 +90,25 @@ class World(
     for (i <- 0.until(currentSimulationState.size)) currentSimulationState(i) = 0
   }
 
+  /** Calculates R0 from model parameters, according to
+    * https://web.stanford.edu/class/earthsys214/notes/Jones_R0_notes2019.pdf equation (1)
+    *
+    * @return R0 - Basic Reproduction Number
+    */
+  def calcR0(): Double = {
+    var totalContacts = 0.0
+    var totalProbs = 0.0
+    for (p <- population) {
+      totalContacts += (p.home.inhabitants.size - 1)
+      if (p.home ne p.work) totalContacts += (p.work.inhabitants.size - 1)
+      totalProbs += p.calcProbContact()
+    }
+    val c = totalContacts / populationSize
+    val t = totalProbs / populationSize
+    val d = INFECTION_TIME + (EXPOSURE_TIME * (1.0 - SOCIAL_RESPONSIBILITY))
+    c * t * d     // Calculated R0
+  }
+
   def printPopulation() = for (p <- population) println(p.toString())
 
   def printBuildings() = {

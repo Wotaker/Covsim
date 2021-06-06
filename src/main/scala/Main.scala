@@ -8,7 +8,8 @@ object Main extends App {
         println("Exiting program...")
         return
       }
-      val world: World = new World(60, 3, (14, 4, 1))
+      val world: World = new World(100000, 100, (25000, 4000, 1600))
+      println(s"Basic Reproduction Number: R0=${world.calcR0()}")
       if (Params.DISPLAY_GRAPH) new GraphUI(world)
       else {
         var worldSpinning = true

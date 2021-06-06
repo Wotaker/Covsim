@@ -5,12 +5,12 @@ import java.io.File
 object Params{
   // Model Parameters:
   val FATALITY_RATE: Double = 0.025
-  val RAW_CONTAGION_RATE: Double = 0.05   // TODO: infect upon citizen parameters, not a constant
+  val RAW_CONTAGION_RATE: Double = 0.031   // Estimated, to fit covid R0 =~ 2.9
   val UNEMPLOYMENT_RATE: Double = 0.06
     // According to: https://www.nature.com/articles/d41586-020-02801-8
   val MASK_WEAR_RATE: Double = 0.5          // The percentage of population wearing masks (0.5 est.)
   val MASK_EFFICIENCY: Double = 0.67        // The effectivness of mask protection (0.67 est.)
-  val SOCIAL_RESPONSIBILITY: Double = 0.5  // The ratio of people who avoid social conntact when infected 
+  val SOCIAL_RESPONSIBILITY: Double = 0.6   // The ratio of people who avoid social conntact when infected 
   
   
   // Implementation Parameters:
@@ -18,7 +18,7 @@ object Params{
   val REFRESH_SPEED: Int = 200    // In ms
   val FILE_DATA: File = new File("savedData\\DataSEIR.csv")
   val SAVE: Boolean = true
-  val DISPLAY_GRAPH: Boolean = true
+  val DISPLAY_GRAPH: Boolean = false
 
 
   /** Calculates the incubation time in days with the distribution function.
@@ -50,8 +50,8 @@ object Params{
   }  
 
   // Depriciated, constants, replaced by get getInfetionTime() and getIncubationTime()
-  private val INFECTION_TIME: Int = 5     // Mean Days/Iterations
-  private val EXPOSURE_TIME: Int = 11     // Mean Days/Iterations
+  val INFECTION_TIME: Int = 5     // Mean Days/Iterations
+  val EXPOSURE_TIME: Int = 11     // Mean Days/Iterations
 }
 
 object StateSIR extends Enumeration {

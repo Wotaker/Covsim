@@ -1,6 +1,6 @@
 using DataFrames, Plots, CSV
 
-plotName = "Model_Dist-Infection.png"
+plotName = "Mdl_SparseVery_(100000, 100, (25000, 4000, 1600)).png"
 fileCSVname = "DataSEIR.csv"
 save = true
 cumulativeIE = false
