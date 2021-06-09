@@ -62,6 +62,9 @@ class Citizen(
       RNG.nextDouble() < calcProbability(
         RAW_CONTAGION_RATE, 
         contagionModerator,
+        // if (wearsMask && from.wearsMask) (1 - MASK_EFFICIENCY) * (1 - MASK_EFFICIENCY)
+        // else if (!wearsMask && !from.wearsMask) 1.0
+        // else (1 - MASK_EFFICIENCY)
         if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
       )
     ) {
@@ -78,6 +81,7 @@ class Citizen(
       RAW_CONTAGION_RATE,
       Home.contagionRate,
       if (wearsMask) 1 - MASK_EFFICIENCY else 1.0
+      // MASK_WEAR_RATE * (1 - MASK_EFFICIENCY)
     )
     val b = calcProbability(
       RAW_CONTAGION_RATE,

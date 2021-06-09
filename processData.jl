@@ -1,20 +1,22 @@
 using DataFrames, Plots, CSV
 
-plotName = "Mdl_SparseVery_(100000, 100, (25000, 4000, 1600)).png"
+plotName = "Mdl_X.png"
 fileCSVname = "DataSEIR.csv"
-save = true
+save = false
 cumulativeIE = false
+allData = true
 
 SIRframe = DataFrame(CSV.File("./savedData/$fileCSVname"))
 
+
 SIRplot = plot(
     SIRframe[!, :Day], 
-    SIRframe[!, :Suspectible],
+    SIRframe[!, :Dead],
     title = "SEIR Model Evolution",
     xlabel = "Day",
     ylabel = "Cases",
-    label = "Suspectible",
-    color = 1
+    label = "Dead",
+    color = :Black
 )
 if cumulativeIE
     plot!(
@@ -37,18 +39,20 @@ else
         color = :red
     )
 end
-plot!(
-    SIRplot,
-    SIRframe[!, :Recovered],
-    label = "Recovered",
-    color = :green
-)
-plot!(
-    SIRplot,
-    SIRframe[!, :Dead],
-    label = "Dead",
-    color = :Black
-)
+if allData
+    plot!(
+        SIRplot,
+        SIRframe[!, :Suspectible],
+        label = "Suspectible",
+        color = 1
+    )
+    plot!(
+        SIRplot,
+        SIRframe[!, :Recovered],
+        label = "Recovered",
+        color = :green
+    )
+end
 
 display(SIRplot)
 

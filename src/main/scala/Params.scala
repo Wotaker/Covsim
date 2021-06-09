@@ -5,20 +5,20 @@ import java.io.File
 object Params{
   // Model Parameters:
   val FATALITY_RATE: Double = 0.025
-  val RAW_CONTAGION_RATE: Double = 0.031   // Estimated, to fit covid R0 =~ 2.9
+  val RAW_CONTAGION_RATE: Double = 0.031   // Estimated, to fit covid R0 =~ 2.9 (0.031)
   val UNEMPLOYMENT_RATE: Double = 0.06
     // According to: https://www.nature.com/articles/d41586-020-02801-8
   val MASK_WEAR_RATE: Double = 0.5          // The percentage of population wearing masks (0.5 est.)
-  val MASK_EFFICIENCY: Double = 0.67        // The effectivness of mask protection (0.67 est.)
+  val MASK_EFFICIENCY: Double = 0.67        // The effectivness of mask protection (0.67 est.) for Wearer
   val SOCIAL_RESPONSIBILITY: Double = 0.6   // The ratio of people who avoid social conntact when infected 
   
   
   // Implementation Parameters:
   val RNG = new Random(42)        // For seed=42, and population=20 inits epidemy from citizen 2.
-  val REFRESH_SPEED: Int = 200    // In ms
+  val REFRESH_SPEED: Int = 100    // In ms
   val FILE_DATA: File = new File("savedData\\DataSEIR.csv")
   val SAVE: Boolean = true
-  val DISPLAY_GRAPH: Boolean = false
+  val DISPLAY_GRAPH: Boolean = true
 
 
   /** Calculates the incubation time in days with the distribution function.
